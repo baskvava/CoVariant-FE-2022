@@ -4,7 +4,7 @@ import { createStore} from "redux";
 import {
     BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
-import {userApp} from "./redux/Reducer";
+import {userApp} from "./reducer";
 
 // Components
 
@@ -24,16 +24,14 @@ function saveToLocalStorage(state) {
     }
 }
 
-store.subscribe(() => saveToLocalStorage(store.getState()));
+// store.subscribe(() => saveToLocalStorage(store.getState()));
 
 // export default App;
 export default function preApp() {
     return (
         <Provider store={ store }>
             <Router>
-                <div>
-                    <NextApp/>
-                </div>
+                <NextApp/>
             </Router>
         </Provider>
     );

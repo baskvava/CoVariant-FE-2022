@@ -1,12 +1,13 @@
 import './App.css';
+import React from "react";
 import {AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, Legend, ResponsiveContainer } from 'recharts';
 import Button from 'react-bootstrap/Button';
 import { Card, Col, Container, Nav, Navbar, NavDropdown, Row, Spinner, Tab } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import React from "react";
 import { connect } from 'react-redux';
-import { getdata } from "./redux/Actions";
-let URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
+import { getdata, setCountries } from "./actions";
+// const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
+const URL = "http://localhost:3001/"
 
 class App extends React.Component {
 
@@ -44,14 +45,21 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // fetch(URL)
+    //     .then(res => res.json())
+    //     .then(res =>
+    //     {
+    //       let ALL_JSON = res.countries;
+    //       this.props.getData(ALL_JSON);
+    //     }
+    //     );
     fetch(URL)
-        .then(res => res.json())
-        .then(res =>
-        {
-          let ALL_JSON = res.countries;
-          this.props.getData(ALL_JSON);
-        }
-        );
+      .then(res => res.json())
+      .then(res => 
+        // console.log(res)
+        // setCountries(res)
+        this.props.setCountries(res)
+      )
   }
 
   oneArea(name) {
@@ -124,14 +132,14 @@ class App extends React.Component {
 
 
   oneTabPane(county) {
-
-    if( this.props.ALL_DF.length > 1 ){
-      let DF = this.props.ALL_DF;
-      const County_JSON = DF.filter(DF.get("county").eq(county)).to_json({orient: 'records'});
-      // console.log(County_JSON)
+    if( this.props.countries.length > 0 ){
+      const res = this.props.countries[0].filter(country => { 
+        return country.county === county
+      })
+      console.log(res)
       return (
           <Tab.Pane eventKey={county}>
-            {this.onePlot(County_JSON, {county})}
+            {this.onePlot(res, {county})}
           </Tab.Pane>
       )
     }else{
@@ -184,16 +192,16 @@ class App extends React.Component {
 
   }
 
-  calling_all(){
-    if(this.props.ALL_USA_JSON.length > 0){
-      return( this.onePlot(this.props.ALL_USA_JSON, "ALL_USA") )
-    }else{
-      return(
-        <div style={{width: '100%'}}>
-          <Spinner style={{display: 'flex', margin: 'auto'}} animation="border" />
-        </div>
-      )
-    }
+  callingAll(){
+    // if(this.props.ALL_USA_JSON.length > 0){
+    //   return( this.onePlot(this.props.ALL_USA_JSON, "ALL_USA") )
+    // }else{
+    //   return(
+    //     <div style={{width: '100%'}}>
+    //       <Spinner style={{display: 'flex', margin: 'auto'}} animation="border" />
+    //     </div>
+    //   )
+    // }
   }
 
   render() {
@@ -226,7 +234,7 @@ class App extends React.Component {
           <div style={{paddingTop: '50px'}}></div>
           <Container style={{"background": "whitesmoke"}} fluid>
               <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
-              {this.calling_all()}
+              {this.callingAll()}
           </Container>
           
           <div id="regions">
@@ -267,18 +275,19 @@ const mapStateToProps = (state) => {
   return {
     // users_all: state.users,
     ALL_DF: state.ALL_DF,
-    ALL_USA_JSON: state.ALL_USA_JSON
+    ALL_USA_JSON: state.ALL_USA_JSON,
+    countries: state.countries
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     // requestUsers: (js) => dispatch(requestUsers(js)),
-    getData: (ALL_JSON) => dispatch(getdata(ALL_JSON))
+    getData: (ALL_JSON) => dispatch(getdata(ALL_JSON)),
+    setCountries: (countries) => dispatch(setCountries(countries))
   }
 };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)  (App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // export default App;

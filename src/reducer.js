@@ -1,6 +1,7 @@
 import {
     GETDATA,
-} from "./Actions";
+    SET_COUNTRIES,
+} from "./actions";
 import {DataFrame} from "pandas-js";
 
 function processData(ALL_JSON) {
@@ -88,22 +89,21 @@ function processData(ALL_JSON) {
 
 const initialState = {
     ALL_DF : new DataFrame(),
-    ALL_USA_JSON: {}
+    ALL_USA_JSON: {},
+    countries: [],
 }
 
 export function userApp( state= initialState, action ) {
-
-    switch( action.type ){
-        // case REQUEST_USERS:
-        //     return { ...state, users: action.users };
-
+    //console.log(action)
+    switch(action.type) {
         case GETDATA:
             // console.log(processData(action.ALL_JSON).toString())
             const RE = processData(action.ALL_JSON)
             return { ALL_DF: RE.at(0), ALL_USA_JSON: RE.at(1) }
-
+        case SET_COUNTRIES:
+            //console.log(action.countries)
+            return {countries: action.countries }
         default:
             return state;
     }
-    return state;
 }
