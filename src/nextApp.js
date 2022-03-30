@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { Card, Col, Container, Nav, Navbar, NavDropdown, Row, Spinner, Tab } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux';
-import { getdata, setCountries, setAllUsa } from "./actions";
+import { setCountries, setAllUsa } from "./actions";
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 const URL = "http://localhost:3001"
 
@@ -45,14 +45,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // fetch(URL)
-    //     .then(res => res.json())
-    //     .then(res =>
-    //     {
-    //       let ALL_JSON = res.countries;
-    //       this.props.getData(ALL_JSON);
-    //     }
-    //     );
+    
     fetch(`${URL}/getStates`)
       .then(res => res.json())
       .then(res => {
@@ -276,9 +269,6 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // users_all: state.users,
-    ALL_DF: state.ALL_DF,
-    ALL_USA_JSON: state.ALL_USA_JSON,
     countries: state.countries,
     allUsa: state.allUsa
   }
@@ -286,13 +276,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // requestUsers: (js) => dispatch(requestUsers(js)),
-    getData: (ALL_JSON) => dispatch(getdata(ALL_JSON)),
     setCountries: (countries) => dispatch(setCountries(countries)),
     setAllUsa: (allUsa) => dispatch(setAllUsa(allUsa)),
   }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-// export default App;
