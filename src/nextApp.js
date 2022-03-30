@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import { Card, Col, Container, Nav, Navbar, NavDropdown, Row, Spinner, Tab } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux';
-import { getdata, setCountries } from "./actions";
+import { getdata, setCountries, setAllUsa } from "./actions";
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
-const URL = "http://localhost:3001/"
+const URL = "http://localhost:3001"
 
 class App extends React.Component {
 
@@ -53,13 +53,17 @@ class App extends React.Component {
     //       this.props.getData(ALL_JSON);
     //     }
     //     );
-    fetch(URL)
+    fetch(`${URL}/getStates`)
       .then(res => res.json())
-      .then(res => 
-        // console.log(res)
-        // setCountries(res)
-        this.props.setCountries(res)
-      )
+      .then(res => {
+        this.props.setCountries(res);
+      })
+
+    fetch(`${URL}/getAllUsa`)
+      .then(res => res.json())
+      .then(res => {
+        this.props.setAllUsa(res);
+      })
   }
 
   oneArea(name) {
@@ -136,7 +140,6 @@ class App extends React.Component {
       const res = this.props.countries[0].filter(country => { 
         return country.county === county
       })
-      console.log(res)
       return (
           <Tab.Pane eventKey={county}>
             {this.onePlot(res, {county})}
@@ -193,15 +196,15 @@ class App extends React.Component {
   }
 
   callingAll(){
-    // if(this.props.ALL_USA_JSON.length > 0){
-    //   return( this.onePlot(this.props.ALL_USA_JSON, "ALL_USA") )
-    // }else{
-    //   return(
-    //     <div style={{width: '100%'}}>
-    //       <Spinner style={{display: 'flex', margin: 'auto'}} animation="border" />
-    //     </div>
-    //   )
-    // }
+    if(this.props.allUsa.length > 0){
+      return( this.onePlot(this.props.allUsa, "ALL_USA") )
+    }else{
+      return(
+        <div style={{width: '100%'}}>
+          <Spinner style={{display: 'flex', margin: 'auto'}} animation="border" />
+        </div>
+      )
+    }
   }
 
   render() {
@@ -276,7 +279,8 @@ const mapStateToProps = (state) => {
     // users_all: state.users,
     ALL_DF: state.ALL_DF,
     ALL_USA_JSON: state.ALL_USA_JSON,
-    countries: state.countries
+    countries: state.countries,
+    allUsa: state.allUsa
   }
 };
 
@@ -284,7 +288,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // requestUsers: (js) => dispatch(requestUsers(js)),
     getData: (ALL_JSON) => dispatch(getdata(ALL_JSON)),
-    setCountries: (countries) => dispatch(setCountries(countries))
+    setCountries: (countries) => dispatch(setCountries(countries)),
+    setAllUsa: (allUsa) => dispatch(setAllUsa(allUsa)),
   }
 };
 

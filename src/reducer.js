@@ -1,6 +1,7 @@
 import {
     GETDATA,
     SET_COUNTRIES,
+    SET_ALL_USA,
 } from "./actions";
 import {DataFrame} from "pandas-js";
 
@@ -91,10 +92,11 @@ const initialState = {
     ALL_DF : new DataFrame(),
     ALL_USA_JSON: {},
     countries: [],
+    allUsa:[],
 }
 
 export function userApp( state= initialState, action ) {
-    //console.log(action)
+    console.log(action)
     switch(action.type) {
         case GETDATA:
             // console.log(processData(action.ALL_JSON).toString())
@@ -102,7 +104,16 @@ export function userApp( state= initialState, action ) {
             return { ALL_DF: RE.at(0), ALL_USA_JSON: RE.at(1) }
         case SET_COUNTRIES:
             //console.log(action.countries)
-            return {countries: action.countries }
+            return {
+                ...state,
+                countries: action.countries
+            }
+        case SET_ALL_USA:
+            //console.log(action.countries)
+            return {
+                ...state,
+                allUsa: action.allUsa
+            }
         default:
             return state;
     }
