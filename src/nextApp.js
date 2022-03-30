@@ -122,7 +122,7 @@ class App extends React.Component {
   oneNav(county) {
     return (
         <Nav.Item>
-          <Nav.Link eventKey={county}>{county}</Nav.Link>
+          <Nav.Link eventKey={county} style={{cursor:'pointer'}}>{county}</Nav.Link>
         </Nav.Item>
     )
   }
