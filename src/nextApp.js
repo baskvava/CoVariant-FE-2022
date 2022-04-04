@@ -6,6 +6,8 @@ import { Card, Col, Container, Nav, Navbar, NavDropdown, Row, Spinner, Tab } fro
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux';
 import { setCountries, setAllUsa } from "./actions";
+import MapChart from './MapChart';
+import ReactTooltip from "react-tooltip";
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 const URL = "http://localhost:3001"
 
@@ -41,6 +43,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      content:"",
     }
   }
 
@@ -230,9 +233,12 @@ class App extends React.Component {
           <div style={{paddingTop: '50px'}}></div>
           <Container style={{"background": "whitesmoke"}} fluid>
               <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
+              <div style={{padding: '0rem 8rem 0rem 8rem'}}>
+                <MapChart />
+              </div>
+              <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
               {this.callingAll()}
           </Container>
-          
           <div id="regions">
             {
               Object.keys(this.counties_regions_set).map((region, idx) => (
@@ -270,7 +276,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     countries: state.countries,
-    allUsa: state.allUsa
+    allUsa: state.allUsa,
+    toolTipContent: state.toolTipContent
   }
 };
 

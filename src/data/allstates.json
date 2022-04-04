@@ -1,0 +1,5 @@
+[
+  { "id": "AL", "val": "01", "unemployment_rate": 222 },
+  { "id": "AK", "val": "02", "unemployment_rate": 2 },
+  { "id": "AS", "val": "60", "unemployment_rate": 22 }
+]
