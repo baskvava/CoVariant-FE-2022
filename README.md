@@ -5,7 +5,7 @@
 ![https://amazing-covariants.surge.sh/](public/demo_pic.png)
 
 ### Author
-[baskvava](https://github.com/baskvava), [QuenLo](https://github.com/QuenLo), Kexin Chen, Mengying Xie
+[baskvava](https://github.com/baskvava), [QuenLo](https://github.com/QuenLo), Serena Chen, Mengying Xie
 
 **- COMP/ELEC 425/554 004**<br>
 1.10 - How might we display variants?
