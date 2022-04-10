@@ -222,7 +222,7 @@ class App extends React.Component {
                     <NavDropdown.Item href="#West Mountain">West Mountain</NavDropdown.Item>
                     <NavDropdown.Item href="#West Pacific">West Pacific</NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="https://usa-variant-zz85.surge.sh/" target="_blank">Vew Details</Nav.Link>
+                  {/* <Nav.Link href="https://usa-variant-zz85.surge.sh/" target="_blank">Vew Details</Nav.Link> */}
                   <Nav.Link href="https://github.com/hodcroftlab/covariants" target="_blank">Data Sources</Nav.Link>
                 </Nav>
               </Container>
