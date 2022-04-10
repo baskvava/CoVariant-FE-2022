@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/baskvava/CoVariant-FE-2022/static/css/main.2699e68e.chunk.css",
+    "main.js": "/baskvava/CoVariant-FE-2022/static/js/main.54c9f81e.chunk.js",
+    "main.js.map": "/baskvava/CoVariant-FE-2022/static/js/main.54c9f81e.chunk.js.map",
+    "runtime-main.js": "/baskvava/CoVariant-FE-2022/static/js/runtime-main.20e57ec0.js",
+    "runtime-main.js.map": "/baskvava/CoVariant-FE-2022/static/js/runtime-main.20e57ec0.js.map",
+    "static/css/2.0a9ec390.chunk.css": "/baskvava/CoVariant-FE-2022/static/css/2.0a9ec390.chunk.css",
+    "static/js/2.0faa1894.chunk.js": "/baskvava/CoVariant-FE-2022/static/js/2.0faa1894.chunk.js",
+    "static/js/2.0faa1894.chunk.js.map": "/baskvava/CoVariant-FE-2022/static/js/2.0faa1894.chunk.js.map",
+    "static/js/3.ac42598e.chunk.js": "/baskvava/CoVariant-FE-2022/static/js/3.ac42598e.chunk.js",
+    "static/js/3.ac42598e.chunk.js.map": "/baskvava/CoVariant-FE-2022/static/js/3.ac42598e.chunk.js.map",
+    "index.html": "/baskvava/CoVariant-FE-2022/index.html",
+    "static/css/2.0a9ec390.chunk.css.map": "/baskvava/CoVariant-FE-2022/static/css/2.0a9ec390.chunk.css.map",
+    "static/css/main.2699e68e.chunk.css.map": "/baskvava/CoVariant-FE-2022/static/css/main.2699e68e.chunk.css.map",
+    "static/js/2.0faa1894.chunk.js.LICENSE.txt": "/baskvava/CoVariant-FE-2022/static/js/2.0faa1894.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.20e57ec0.js",
+    "static/css/2.0a9ec390.chunk.css",
+    "static/js/2.0faa1894.chunk.js",
+    "static/css/main.2699e68e.chunk.css",
+    "static/js/main.54c9f81e.chunk.js"
+  ]
+}
