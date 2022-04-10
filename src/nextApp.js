@@ -208,7 +208,7 @@ class App extends React.Component {
           <div style={{position: 'fixed', width: '100%', zIndex: '1000'}}>
             <Navbar bg="primary" variant="dark" >
               <Container>
-                <Navbar.Brand href="#USA"># 1.10 Overview of Variants in United States</Navbar.Brand>
+                <Navbar.Brand href="#USA">Covid Variants in United States</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="#USA">All</Nav.Link>
                   <NavDropdown title="View by Counties" id="regions">
@@ -249,21 +249,25 @@ class App extends React.Component {
             <Card.Body>
               <Card.Title>Overview of Variants in United States</Card.Title>
               <Card.Text>
-                <strong>Class</strong>:COMP/ELEC 425/554 Computer Systems Architecture, Ray Simar
+                <strong>Class</strong>:2021 COMP/ELEC 425/554 + 2022 COMP 590 Computer Systems Architecture, Ray Simar
                 <br/>
-                <strong>Team</strong>: Hope-Simpson, #1.10 - How might we display variants?
+                {/* <strong>Team</strong>: Hope-Simpson, #1.10 - How might we display variants? */}
                 <br/>
                 <strong>Author</strong>:
                 <a href={"https://github.com/baskvava"}>Ying-Hsuan Chen</a> (yc144@rice.edu),
                 <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (quenluo@rice.edu),
-                <a href="">Zijian Zhou</a>  (zjzhou@rice.edu)
+                <a href="">Yuxi Liang</a>
+                <a href="">Kexin Chen</a>
+                <a href="">Zewen Xu</a>
+                <a href="">Jiacheng Sun</a>
+                <a href="">Mengying Xie</a>
                 <br/>
                 <strong>Thanks To</strong>: Emma B. Hodcroft. 2021. "CoVariants: SARS-CoV-2 Mutations and Variants of
                 Interest." <a href={"https://covariants.org/"}>https://covariants.org/</a>
               </Card.Text>
               <Button variant="primary" href={"https://github.com/baskvava/CoVariants"}>CoVariants (Github)</Button>
             </Card.Body>
-            <Card.Footer className="text-muted">@2021 Rice Comp 554 Hope-Simpson</Card.Footer>
+            <Card.Footer className="text-muted">@2022 Rice Comp 554 Hope-Simpson</Card.Footer>
           </Card>
         </>
     );
