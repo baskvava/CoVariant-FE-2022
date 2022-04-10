@@ -256,11 +256,12 @@ class App extends React.Component {
                 <strong>Author</strong>:
                 <a href={"https://github.com/baskvava"}>Ying-Hsuan Chen</a> (yc144@rice.edu),
                 <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (quenluo@rice.edu),
-                <a href="">Yuxi Liang</a>
-                <a href="">Kexin Chen</a>
-                <a href="">Zewen Xu</a>
-                <a href="">Jiacheng Sun</a>
-                <a href="">Mengying Xie</a>
+                <br/>
+                <a href="">Yuxi Liang, </a>
+                <a href="">Kexin Chen, </a>
+                <a href="">Zewen Xu, </a>
+                <a href="">Jiacheng Sun, </a>
+                <a href="">Mengying Xie </a>
                 <br/>
                 <strong>Thanks To</strong>: Emma B. Hodcroft. 2021. "CoVariants: SARS-CoV-2 Mutations and Variants of
                 Interest." <a href={"https://covariants.org/"}>https://covariants.org/</a>
