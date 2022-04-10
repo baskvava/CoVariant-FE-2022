@@ -9,7 +9,8 @@ import { setCountries, setAllUsa } from "./actions";
 import MapChart from './MapChart';
 import ReactTooltip from "react-tooltip";
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
-const URL = "http://localhost:3001"
+// const URL = "http://localhost:3001"
+const URL = "https://covid-variant.herokuapp.com"
 
 class App extends React.Component {
 
