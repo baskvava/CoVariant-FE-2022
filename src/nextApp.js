@@ -257,7 +257,7 @@ class App extends React.Component {
                 <a href={"https://github.com/baskvava"}>Ying-Hsuan Chen</a> (yc144@rice.edu),
                 <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (quenluo@rice.edu),
                 <br/>
-                <a href="">Yuxi Liang, </a>
+                <a href="">Yuxi Liang </a> (rbm2@rice.edu),
                 <a href="">Serena Chen, </a>
                 <a href="">Zewen Xu, </a>
                 <a href="">Jiacheng Sun, </a>
