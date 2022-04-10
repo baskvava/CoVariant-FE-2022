@@ -39,7 +39,6 @@ class App extends React.Component {
     "West Pacific": ["Alaska", "California", "Hawaii", "Oregon", "Washington"],
   }
 
-
   constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +47,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    
     fetch(`${URL}/getStates`)
       .then(res => res.json())
       .then(res => {
@@ -68,7 +66,6 @@ class App extends React.Component {
         <Area type="monotone" dataKey={name} stroke={this.color_set[name]} fillOpacity={1} fill={fill}/>
     )
   }
-
 
   oneLinearGradient(name) {
     return (

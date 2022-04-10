@@ -136,7 +136,7 @@ const mapFormat = [
   ]
 
 
-const allVirus = ["Alpha","Beta","Gamma","Omicron","Kappa","Eta","Iota","Lambda","others","Delta","non_variants"];
+const allVirus = ["Options", "Alpha","Beta","Gamma","Omicron","Kappa","Eta","Iota","Lambda","others","Delta","non_variants"];
 
 const initialState = {
     countries: [],
@@ -171,7 +171,7 @@ export function userApp( state= initialState, action ) {
                 allUsa: action.allUsa
             }
         case SET_TOOL_TIP_CONTENT:
-            console.log(action.toolTipContent)
+            // console.log(action.toolTipContent)
             return {
                 ...state,
                 toolTipContent: action.toolTipContent

@@ -4,7 +4,6 @@ import { geoCentroid } from "d3-geo";
 import { scaleQuantile } from "d3-scale";
 import { useDispatch, useSelector } from 'react-redux';
 import { setTooltipContent } from "./actions";
-import allStates from "./data/allstates.json";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -13,10 +12,10 @@ const MapChart = () => {
   const [weeks, setWeeks] = useState([])
   const [states, setStates] = useState([])
   const [allVirus, setAllVirus] = useState([])
-  const [curState, setCurState] = useState()
   const [curTime, setCurTime] = useState()
-  const [curVirus, setCurVirus] = useState("Alpha")
+  const [curVirus, setCurVirus] = useState("Options")
   const [curMap, setCurMap] = useState([])
+  const [maxCount, setMaxCount] = useState(0)
   // const [myCar, setMyCar] = useState("Volvo");
   const countries = useSelector((state) => state.countries)
   const weekOptions = useSelector((state) => state.weekOptions)
@@ -47,18 +46,16 @@ const MapChart = () => {
     }
 
   }, [weeks, weekOptions, states, stateOptions, allVirus, virusOptions, curMap, mapFormat])
-  //console.log(states)
 
   // virus
   const handleVirusChange = (event) => {
     const chosenVirus = event.target.value
     setCurVirus(chosenVirus)
-    // console.log(event.target.value)
-    // console.log(countries[0])
 
     const allCountries = countries[0]
 
-    const res = curMap.map((mapRow) => {
+    const res = mapFormat.map((mapRow) => {
+      mapRow['number'] = 0
       for (let data of allCountries) {
         if (stateOptions[mapRow.id] === data['county'] && data['week'] === curTime) {
           mapRow['number'] += isNaN(data[chosenVirus]) ? 0 : data[chosenVirus]
@@ -66,47 +63,58 @@ const MapChart = () => {
       }
       return mapRow
     })
-    setCurMap(res)
+    let maxVal = 0
+    res.forEach(element => {
+      console.log(element.number)
+      if (element.number > maxVal) {
+        maxVal = element.number
+      }
+    })
+    setMaxCount(maxVal)
     // console.log(res)
-    // setMyCar(event.target.value)
+    setCurMap(res)
   }
 
-    // time
-    const handleTimeChange = (event) => {
-      const chosenTime = event.target.value
-      setCurTime(chosenTime)
-      // console.log(event.target.value)
-      // console.log(countries[0])
-  
-      const allCountries = countries[0]
-  
-      const res = curMap.map((mapRow) => {
-        for (let data of allCountries) {
-          if (stateOptions[mapRow.id] === data['county'] && data['week'] === chosenTime) {
-            mapRow['number'] += isNaN(data[curVirus]) ? 0 : data[curVirus]
-          }
+  // time
+  const handleTimeChange = (event) => {
+    const chosenTime = event.target.value
+    setCurTime(chosenTime)
+    const allCountries = countries[0]
+    const res = mapFormat.map((mapRow) => {
+      mapRow['number'] = 0
+      for (let data of allCountries) {
+        if (stateOptions[mapRow.id] === data['county'] && data['week'] === chosenTime) {
+          mapRow['number'] += isNaN(data[curVirus]) ? 0 : data[curVirus]
         }
-        return mapRow
-      })
-      setCurMap(res)
-      // console.log(res)
-      // setMyCar(event.target.value)
-    }
+      }
+      return mapRow
+    })
+    let maxVal = 0
+    res.forEach(element => {
+      console.log(element.number)
+      if (element.number > maxVal) {
+        maxVal = element.number
+      }
+    })
+    setMaxCount(maxVal)
+    setCurMap(res)
+  }
 
+  const colorSets = [
+    "#ffedea",
+    "#ffcec5",
+    "#ffad9f",
+    "#ff8a75",
+    "#ff5533",
+    "#e2492d",
+    "#be3d26",
+    "#9a311f",
+    "#782618"
+  ]
 
   const colorScale = scaleQuantile()
     .domain(curMap.map(d => d.number))
-    .range([
-      "#ffedea",
-      "#ffcec5",
-      "#ffad9f",
-      "#ff8a75",
-      "#ff5533",
-      "#e2492d",
-      "#be3d26",
-      "#9a311f",
-      "#782618"
-    ]);
+    .range(colorSets);
 
   const offsets = {
     VT: [50, -8],
@@ -124,8 +132,7 @@ const MapChart = () => {
 
   return (
     <>
-      {/* <div>{colorScale(19)}</div> */}
-      <form>
+      <form style={{ display: 'flex', paddingTop: '2rem' }}>
         <label>
           Virus:
           <select value={curVirus} onChange={handleVirusChange}>
@@ -138,7 +145,7 @@ const MapChart = () => {
             }
           </select>
         </label>
-        <label>
+        <label style={{ paddingLeft: '2rem' }}>
           Time:
           <select value={curTime} onChange={handleTimeChange}>
             {
@@ -150,7 +157,15 @@ const MapChart = () => {
             }
           </select>
         </label>
-        {/* <input type="submit" value="Submit" /> */}
+        {maxCount !== 0 ? <label style={{ display: 'flex', paddingLeft: '2rem'}}>
+          <span style={{ paddingRight: '0.75rem'}}>0</span>
+          {colorSets.map(color => {
+            return (
+              <div key={color} style={{ width: '2rem', height: '2rem', background: `${color}`}}></div>
+            )
+          })}
+          <span style={{ paddingLeft: '0.75rem'}}>{maxCount}</span>
+        </label> : <></>}
       </form>
       <ComposableMap data-tip="" projection="geoAlbersUsa">
         <Geographies geography={geoUrl}>
