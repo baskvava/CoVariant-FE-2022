@@ -267,7 +267,7 @@ class App extends React.Component {
                 Interest." <a href={"https://covariants.org/"}>https://covariants.org/</a>
               </Card.Text>
               <Button variant="primary" href={"https://github.com/baskvava/CoVariant-BE-2022"}>CoVariants (Github) - Backend</Button>
-              <Button variant="primary" href={"https://github.com/baskvava/CoVariant-FE-2022"}>CoVariants (Github) - Frontend</Button>
+              <Button variant="primary" style={{marginLeft: '1.5rem'}} href={"https://github.com/baskvava/CoVariant-FE-2022"}>CoVariants (Github) - Frontend</Button>
             </Card.Body>
             <Card.Footer className="text-muted">@2022 Rice Comp 554 Hope-Simpson</Card.Footer>
           </Card>
