@@ -12,8 +12,8 @@ const MapChart = () => {
   const [weeks, setWeeks] = useState([])
   const [states, setStates] = useState([])
   const [allVirus, setAllVirus] = useState([])
-  const [curTime, setCurTime] = useState()
-  const [curVirus, setCurVirus] = useState("Options")
+  const [curTime, setCurTime] = useState("")
+  const [curVirus, setCurVirus] = useState("Option")
   const [curMap, setCurMap] = useState([])
   const [maxCount, setMaxCount] = useState(0)
   // const [myCar, setMyCar] = useState("Volvo");
@@ -133,6 +133,7 @@ const MapChart = () => {
   return (
     <>
       <form style={{ display: 'flex', paddingTop: '2rem' }}>
+
         <label>
           Virus:
           <select value={curVirus} onChange={handleVirusChange}>
@@ -145,9 +146,10 @@ const MapChart = () => {
             }
           </select>
         </label>
+
         <label style={{ paddingLeft: '2rem' }}>
           Time:
-          <select value={curTime} onChange={handleTimeChange}>
+          <select value={curTime} onChange={handleTimeChange} >
             {
               weeks.length > 0 ? weeks.map((weekOption) => {
                 return (
@@ -157,17 +159,10 @@ const MapChart = () => {
             }
           </select>
         </label>
-        {maxCount !== 0 ? <label style={{ display: 'flex', paddingLeft: '2rem'}}>
-          <span style={{ paddingRight: '0.75rem'}}>0</span>
-          {colorSets.map(color => {
-            return (
-              <div key={color} style={{ width: '2rem', height: '2rem', background: `${color}`}}></div>
-            )
-          })}
-          <span style={{ paddingLeft: '0.75rem'}}>{maxCount}</span>
-        </label> : <></>}
+
+        {/*Map*/}
       </form>
-      <ComposableMap data-tip="" projection="geoAlbersUsa">
+      <ComposableMap data-tip="" projection="geoAlbersUsa" >
         <Geographies geography={geoUrl}>
           {({ geographies }) => (
             <>
@@ -183,9 +178,11 @@ const MapChart = () => {
                   onMouseLeave={() => {
                     dispatch(setTooltipContent(""));
                   }}
+
                   fill={cur ? colorScale(cur.number) : "#EEE"}
                 />)
               })}
+
               {geographies.map(geo => {
                 const centroid = geoCentroid(geo);
                 const cur = curMap.find(s => s.val === geo.id);
@@ -218,6 +215,17 @@ const MapChart = () => {
           )}
         </Geographies>
       </ComposableMap>
+
+      {/*Label*/}
+      {maxCount >= 0 ? <label style={{ display: 'flex', "justify-content": "flex-end",  paddingLeft: '0rem'}}>
+        <span style={{ paddingRight: '0.75rem'}}>0</span>
+        {colorSets.map(color => {
+          return (
+              <div key={color} style={{ width: '2rem', height: '2rem', background: `${color}`}}></div>
+          )
+        })}
+        <span style={{ paddingLeft: '0.75rem'}}>{maxCount}</span>
+      </label> : <></>}
     </>
   );
 };

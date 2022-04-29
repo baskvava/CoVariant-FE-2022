@@ -2,7 +2,19 @@ import './App.css';
 import React from "react";
 import {AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, Legend, ResponsiveContainer } from 'recharts';
 import Button from 'react-bootstrap/Button';
-import { Card, Col, Container, Nav, Navbar, NavDropdown, Row, Spinner, Tab } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  Container,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Row,
+  Spinner,
+  Tab,
+  Toast,
+  ToastContainer
+} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux';
 import { setCountries, setAllUsa } from "./actions";
@@ -211,7 +223,7 @@ class App extends React.Component {
                 <Navbar.Brand href="#USA">Covid Variants in United States</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="#USA">All</Nav.Link>
-                  <NavDropdown title="View by Counties" id="regions">
+                  <NavDropdown title="View by Regions" id="regions">
                     <NavDropdown.Item href="#New England">New England</NavDropdown.Item>
                     <NavDropdown.Item href="#Mid-Atlantic">Mid-Atlantic</NavDropdown.Item>
                     <NavDropdown.Item href="#East North Central">East North Central</NavDropdown.Item>
@@ -228,14 +240,29 @@ class App extends React.Component {
               </Container>
             </Navbar>
           </div>
+
+          <ToastContainer className="p-3" position="bottom-end">
+            <Toast>
+              <Toast.Header>
+                <img src="../public/Rice_Shield_Black.png" className="Rice Logo" alt="Rice Shield " />
+                <strong className="me-auto">Data comes from</strong>
+                <small>updated</small>
+              </Toast.Header>
+              <Toast.Body><a href="https://github.com/hodcroftlab/covariants">Institute of Social and Preventive Medicine University of Bern</a>, Bern, Switzerland & SIB Swiss Insitute of Bioinformatics, Switzerland</Toast.Body>
+            </Toast>
+          </ToastContainer>
+
           <div style={{paddingTop: '50px'}}></div>
-          <Container style={{"background": "whitesmoke"}} fluid>
-              <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
-              <div style={{padding: '0rem 8rem 0rem 8rem'}}>
+          <Container style={{"background": "white"}} fluid>
+              <div style={{padding: '0rem 8rem 3rem 8rem'}}>
                 <MapChart />
               </div>
-              <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
-              {this.callingAll()}
+          </Container>
+
+          <Container style={{"background": "whitesmoke"}} fluid>
+            <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
+            <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
+            {this.callingAll()}
           </Container>
           <div id="regions">
             {
@@ -255,7 +282,7 @@ class App extends React.Component {
                 <br/>
                 <strong>Author</strong>:
                 <a href={"https://github.com/baskvava"}>Ying-Hsuan Chen</a> (yc144@rice.edu),
-                <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (quenluo@rice.edu),
+                <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (cl144@rice.edu),
                 <br/>
                 <a href="">Yuxi Liang, </a>
                 <a href="">Serena Chen, </a>
