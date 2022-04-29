@@ -23,6 +23,7 @@ import SwaggerUI from "swagger-ui-react"
 import "swagger-ui-react/swagger-ui.css"
 import ReactTooltip from "react-tooltip";
 import RiceSieldBlack from './Rice_Shield_Black.png'
+import jsonData from "./Variant_API-1.0.0-oas3.json";
 
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 // const URL = "http://localhost:3001"
@@ -229,10 +230,25 @@ class App extends React.Component {
   }
 
   openAPI(){
+    // fetch("./Variant_API-1.0.0-oas3.json")
+    //     .then(response => {
+    //       return response.json();
+    //     })
+    //     .then(jsondata => {
+    //       // return(
+    //       //     <div style={{background: "lightgrey", "padding": "3rem 1rem"}} id="API">
+    //       //       <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Data API- </h2>
+    //       //       <SwaggerUI spec={jsondata} />
+    //       //     </div>
+    //       // )
+    //     });
+
+    const jsonData= require("./Variant_API-1.0.0-oas3.json");
+    console.log(jsonData);
     return(
-        <div style={{background: "lightgrey", "padding": "3rem 1rem"}} id="API">
+        <div style={{background: "#f7f7f7", "padding": "3rem 1rem"}} id="API">
           <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Data API- </h2>
-          <SwaggerUI url="https://app.swaggerhub.com/apis-docs/sp22-variant-display/Variant_API/1.0.0-oas3" />
+          <SwaggerUI spec={jsonData} />
         </div>
     )
   }
