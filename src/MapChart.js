@@ -217,7 +217,7 @@ const MapChart = () => {
       </ComposableMap>
 
       {/*Label*/}
-      {maxCount >= 0 ? <label style={{ display: 'flex', "justify-content": "flex-end",  paddingLeft: '0rem'}}>
+      {maxCount >= 0 ? <label style={{ display: 'flex', "justifyContent": "flex-end",  paddingLeft: '0rem'}}>
         <span style={{ paddingRight: '0.75rem'}}>0</span>
         {colorSets.map(color => {
           return (

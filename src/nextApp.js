@@ -22,6 +22,7 @@ import MapChart from './MapChart';
 import SwaggerUI from "swagger-ui-react"
 import "swagger-ui-react/swagger-ui.css"
 import ReactTooltip from "react-tooltip";
+import RiceSieldBlack from './Rice_Shield_Black.png'
 
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 // const URL = "http://localhost:3001"
@@ -59,6 +60,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       content:"",
+      showA: true,
     }
   }
 
@@ -152,8 +154,8 @@ class App extends React.Component {
       return (
           <Tab.Pane eventKey={county}>
             <Container>
-              <Row style={ {display: 'flex', 'justify-content': 'flex-end', 'align-items': 'flex-start'} }>
-                <Col xs lg="3" style={{  "display": "flex", "justify-content": "flex-end"}} >
+              <Row style={ {display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start'} }>
+                <Col xs lg="3" style={{  display: "flex", justifyContent: "flex-end"}} >
                   <Nav.Link href={ `${URL}/getState/${county}` } target="_blank"><Button variant="outline-primary" size="lg">Raw Data</Button>{' '}</Nav.Link>
                 </Col>
                 <Col xs lg="3">
@@ -235,6 +237,8 @@ class App extends React.Component {
     )
   }
 
+  toggleShowA = () => this.setState({showA: false})
+
   render() {
 
     return (
@@ -269,9 +273,9 @@ class App extends React.Component {
           </div>
 
           <ToastContainer className="p-3" position="bottom-end">
-            <Toast>
+            <Toast show={this.state.showA} onClose={this.toggleShowA}>
               <Toast.Header>
-                <img src="../public/Rice_Shield_Black.png" className="Rice Logo" alt="Rice Shield " />
+                <img src={RiceSieldBlack} className="Rice Logo" width="20" style={{marginRight: '0.2rem'}} alt="Rice Shield" />
                 <strong className="me-auto">Data comes from</strong>
                 <small>updated</small>
               </Toast.Header>
@@ -287,12 +291,12 @@ class App extends React.Component {
               </div>
           </Container>
 
-          <Container style={{"background": "whitesmoke", "padding-bottom": "20px"}} fluid>
+          <Container style={{"background": "whitesmoke", "paddingBottom": "20px"}} fluid>
             <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
             <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
 
-            <Row style={ {display: 'flex', 'justify-content': 'center', 'align-items': 'flex-start'} }>
-              <Col xs lg="3" style={{  "display": "flex", "justify-content": "flex-end"}} >
+            <Row style={ {display: 'flex', justifyContent: 'center', alignItems: 'flex-start'} }>
+              <Col xs lg="3" style={{  display: "flex", justifyContent: "flex-end"}} >
                 <Nav.Link href={ `${URL}/getAllUsa` } target="_blank"><Button variant="outline-primary" size="lg">Get AllUsa</Button>{' '}</Nav.Link>
               </Col>
               <Col xs lg="3">
