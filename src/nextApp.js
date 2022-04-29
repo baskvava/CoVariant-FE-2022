@@ -19,8 +19,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux';
 import { setCountries, setAllUsa } from "./actions";
 import MapChart from './MapChart';
+import SwaggerUI from "swagger-ui-react"
+import "swagger-ui-react/swagger-ui.css"
 import ReactTooltip from "react-tooltip";
-import {Link} from "react-router-dom";
+
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 // const URL = "http://localhost:3001"
 const URL = "https://covid-variant.herokuapp.com"
@@ -224,6 +226,15 @@ class App extends React.Component {
     }
   }
 
+  openAPI(){
+    return(
+        <div style={{background: "lightgrey", "padding": "3rem 1rem"}} id="API">
+          <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Data API- </h2>
+          <SwaggerUI url="https://app.swaggerhub.com/apis-docs/sp22-variant-display/Variant_API/1.0.0-oas3" />
+        </div>
+    )
+  }
+
   render() {
 
     return (
@@ -247,6 +258,11 @@ class App extends React.Component {
                   </NavDropdown>
                   {/* <Nav.Link href="https://usa-variant-zz85.surge.sh/" target="_blank">Vew Details</Nav.Link> */}
                   <Nav.Link href="https://github.com/hodcroftlab/covariants" target="_blank">Data Sources</Nav.Link>
+                </Nav>
+                <Nav>
+                  <Nav.Item>
+                    <Nav.Link href="#API"><Button variant="warning">Data API</Button>{' '}</Nav.Link>
+                  </Nav.Item>
                 </Nav>
               </Container>
             </Navbar>
@@ -292,6 +308,9 @@ class App extends React.Component {
                   this.eachRegion(region, idx)
               ))}
           </div>
+
+          {/*API Document*/}
+          {this.openAPI()}
 
           {/*Footer*/}
           <Card className="text-center">

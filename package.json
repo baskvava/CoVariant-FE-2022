@@ -23,6 +23,7 @@
     "recharts": "^2.1.6",
     "redux": "^4.2.0",
     "surge": "^0.23.0",
+    "swagger-ui-react": "^4.10.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
