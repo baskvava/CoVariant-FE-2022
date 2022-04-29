@@ -1,13 +1,28 @@
 import './App.css';
-import React from "react";
+import React, {useState} from "react";
 import {AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, Legend, ResponsiveContainer } from 'recharts';
 import Button from 'react-bootstrap/Button';
-import { Card, Col, Container, Nav, Navbar, NavDropdown, Row, Spinner, Tab } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  Container,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Row,
+  Spinner,
+  Tab,
+  Toast,
+  ToastContainer
+} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux';
 import { setCountries, setAllUsa } from "./actions";
 import MapChart from './MapChart';
+import SwaggerUI from "swagger-ui-react"
+import "swagger-ui-react/swagger-ui.css"
 import ReactTooltip from "react-tooltip";
+
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 // const URL = "http://localhost:3001"
 const URL = "https://covid-variant.herokuapp.com"
@@ -136,6 +151,16 @@ class App extends React.Component {
       })
       return (
           <Tab.Pane eventKey={county}>
+            <Container>
+              <Row style={ {display: 'flex', 'justify-content': 'flex-end', 'align-items': 'flex-start'} }>
+                <Col xs lg="3" style={{  "display": "flex", "justify-content": "flex-end"}} >
+                  <Nav.Link href={ `${URL}/getState/${county}` } target="_blank"><Button variant="outline-primary" size="lg">Raw Data</Button>{' '}</Nav.Link>
+                </Col>
+                <Col xs lg="3">
+                  <Nav.Link href={ `${URL}/getStateDetail/${county}` } target="_blank"><Button variant="outline-primary" size="lg">Unstacked Data</Button>{' '}</Nav.Link>
+                </Col>
+              </Row>
+            </Container>
             {this.onePlot(res, {county})}
           </Tab.Pane>
       )
@@ -201,6 +226,15 @@ class App extends React.Component {
     }
   }
 
+  openAPI(){
+    return(
+        <div style={{background: "lightgrey", "padding": "3rem 1rem"}} id="API">
+          <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Data API- </h2>
+          <SwaggerUI url="https://app.swaggerhub.com/apis-docs/sp22-variant-display/Variant_API/1.0.0-oas3" />
+        </div>
+    )
+  }
+
   render() {
 
     return (
@@ -208,10 +242,10 @@ class App extends React.Component {
           <div style={{position: 'fixed', width: '100%', zIndex: '1000'}}>
             <Navbar bg="primary" variant="dark" >
               <Container>
-                <Navbar.Brand href="#USA">Covid Variants in United States</Navbar.Brand>
+                <Navbar.Brand href="#">Covid Variants in United States</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="#USA">All</Nav.Link>
-                  <NavDropdown title="View by Counties" id="regions">
+                  <NavDropdown title="View by Regions" id="regions">
                     <NavDropdown.Item href="#New England">New England</NavDropdown.Item>
                     <NavDropdown.Item href="#Mid-Atlantic">Mid-Atlantic</NavDropdown.Item>
                     <NavDropdown.Item href="#East North Central">East North Central</NavDropdown.Item>
@@ -225,17 +259,48 @@ class App extends React.Component {
                   {/* <Nav.Link href="https://usa-variant-zz85.surge.sh/" target="_blank">Vew Details</Nav.Link> */}
                   <Nav.Link href="https://github.com/hodcroftlab/covariants" target="_blank">Data Sources</Nav.Link>
                 </Nav>
+                <Nav>
+                  <Nav.Item>
+                    <Nav.Link href="#API"><Button variant="warning">Data API</Button>{' '}</Nav.Link>
+                  </Nav.Item>
+                </Nav>
               </Container>
             </Navbar>
           </div>
+
+          <ToastContainer className="p-3" position="bottom-end">
+            <Toast>
+              <Toast.Header>
+                <img src="../public/Rice_Shield_Black.png" className="Rice Logo" alt="Rice Shield " />
+                <strong className="me-auto">Data comes from</strong>
+                <small>updated</small>
+              </Toast.Header>
+              <Toast.Body><a href="https://github.com/hodcroftlab/covariants">Institute of Social and Preventive Medicine University of Bern</a>,
+                Bern, Switzerland & SIB Swiss Insitute of Bioinformatics, Switzerland</Toast.Body>
+            </Toast>
+          </ToastContainer>
+
           <div style={{paddingTop: '50px'}}></div>
-          <Container style={{"background": "whitesmoke"}} fluid>
-              <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
-              <div style={{padding: '0rem 8rem 0rem 8rem'}}>
+          <Container style={{"background": "white"}} fluid>
+              <div style={{padding: '0rem 8rem 3rem 8rem'}}>
                 <MapChart />
               </div>
-              <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
-              {this.callingAll()}
+          </Container>
+
+          <Container style={{"background": "whitesmoke", "padding-bottom": "20px"}} fluid>
+            <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
+            <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
+
+            <Row style={ {display: 'flex', 'justify-content': 'center', 'align-items': 'flex-start'} }>
+              <Col xs lg="3" style={{  "display": "flex", "justify-content": "flex-end"}} >
+                <Nav.Link href={ `${URL}/getAllUsa` } target="_blank"><Button variant="outline-primary" size="lg">Get AllUsa</Button>{' '}</Nav.Link>
+              </Col>
+              <Col xs lg="3">
+                <Nav.Link href={ `${URL}/getStatesDetail` } target="_blank"><Button variant="outline-primary" size="lg">Get Detail Data</Button>{' '}</Nav.Link>
+              </Col>
+            </Row>
+
+            {this.callingAll()}
           </Container>
           <div id="regions">
             {
@@ -243,6 +308,9 @@ class App extends React.Component {
                   this.eachRegion(region, idx)
               ))}
           </div>
+
+          {/*API Document*/}
+          {this.openAPI()}
 
           {/*Footer*/}
           <Card className="text-center">
@@ -255,7 +323,7 @@ class App extends React.Component {
                 <br/>
                 <strong>Author</strong>:
                 <a href={"https://github.com/baskvava"}>Ying-Hsuan Chen</a> (yc144@rice.edu),
-                <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (quenluo@rice.edu),
+                <a href={"https://github.com/QuenLo"}>Cyuan-Heng Luo</a> (cl144@rice.edu),
                 <br/>
                 <a href="">Yuxi Liang, </a>
                 <a href="">Serena Chen, </a>
