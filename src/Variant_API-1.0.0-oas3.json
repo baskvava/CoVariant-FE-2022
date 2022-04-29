@@ -1,0 +1,241 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "**- 2022 Spring COMP 590 Computer Systems Architecture, Ray Simar**\n(sp22-variant-display)\n\n**- Website**: https://baskvava.github.io/CoVariant-FE-2022/\n",
+    "version" : "1.0.0-oas3",
+    "title" : "Covid-19 Variant Data API",
+    "contact" : {
+      "email" : "quenluo@rice.edu"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "Whole Country"
+  }, {
+    "name" : "Per State"
+  } ],
+  "paths" : {
+    "/getAllUsa" : {
+      "get" : {
+        "tags" : [ "Whole Country" ],
+        "summary" : "summerize data",
+        "operationId" : "getAllUsa",
+        "description" : "Detail cases of Variants in USA from 2021\n",
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/getAllUsa"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/getStates" : {
+      "get" : {
+        "tags" : [ "Per State" ],
+        "summary" : "data of every states",
+        "operationId" : "getStates",
+        "description" : "Overview of Variants in each state from 2021, it may take few seconds to proecess\n",
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/getStates"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/getStatesDetail" : {
+      "get" : {
+        "tags" : [ "Per State" ],
+        "summary" : "Detail data of every states",
+        "operationId" : "getStatesDetail",
+        "description" : "Detail of Variants in each state from 2021\n",
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/getStates"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/getState/{state}" : {
+      "get" : {
+        "tags" : [ "Per State" ],
+        "summary" : "Summary data of specific state",
+        "operationId" : "getState",
+        "description" : "Summarize variants data in a state from 2021\n",
+        "parameters" : [ {
+          "name" : "state",
+          "in" : "path",
+          "description" : "ID of pet to update",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "Taxes"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/getStates"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/getStateDetail/{state}" : {
+      "get" : {
+        "tags" : [ "Per State" ],
+        "summary" : "Detail data of specific states",
+        "operationId" : "getStateDetail",
+        "description" : "Detail of Variants in a state from 2021\n",
+        "parameters" : [ {
+          "name" : "state",
+          "in" : "path",
+          "description" : "ID of pet to update",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "Taxes"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/getStates"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "url" : "https://covid-variant.herokuapp.com"
+  } ],
+  "components" : {
+    "schemas" : {
+      "getAllUsa" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/week"
+        }
+      },
+      "week" : {
+        "type" : "object",
+        "required" : [ "Alpha", "non_variants", "Omicron", "week" ],
+        "properties" : {
+          "Alpha" : {
+            "type" : "number",
+            "format" : "uuid",
+            "example" : 19
+          },
+          "non_variants" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "Omicron" : {
+            "type" : "number",
+            "example" : 3092
+          },
+          "week" : {
+            "type" : "string",
+            "example" : "2020-04-27"
+          }
+        }
+      },
+      "getStates" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/week_county"
+        }
+      },
+      "week_county" : {
+        "type" : "object",
+        "required" : [ "Alpha", "Beta", "Omicron", "county", "week" ],
+        "properties" : {
+          "Alpha" : {
+            "type" : "number",
+            "format" : "uuid",
+            "example" : 19
+          },
+          "Beta" : {
+            "type" : "number",
+            "example" : 200
+          },
+          "Omicron" : {
+            "type" : "number",
+            "example" : 3092
+          },
+          "county" : {
+            "type" : "string",
+            "example" : "Taxes"
+          },
+          "week" : {
+            "type" : "string",
+            "example" : "2020-04-27"
+          }
+        }
+      }
+    }
+  }
+}
