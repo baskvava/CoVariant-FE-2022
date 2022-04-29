@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, {useState} from "react";
 import {AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, Legend, ResponsiveContainer } from 'recharts';
 import Button from 'react-bootstrap/Button';
 import {
@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { setCountries, setAllUsa } from "./actions";
 import MapChart from './MapChart';
 import ReactTooltip from "react-tooltip";
+import {Link} from "react-router-dom";
 // const URL = "https://raw.githubusercontent.com/hodcroftlab/covariants/master/cluster_tables/USAClusters_data.json";
 // const URL = "http://localhost:3001"
 const URL = "https://covid-variant.herokuapp.com"
@@ -148,6 +149,16 @@ class App extends React.Component {
       })
       return (
           <Tab.Pane eventKey={county}>
+            <Container>
+              <Row style={ {display: 'flex', 'justify-content': 'flex-end', 'align-items': 'flex-start'} }>
+                <Col xs lg="3" style={{  "display": "flex", "justify-content": "flex-end"}} >
+                  <Nav.Link href={ `${URL}/getState/${county}` } target="_blank"><Button variant="outline-primary" size="lg">Raw Data</Button>{' '}</Nav.Link>
+                </Col>
+                <Col xs lg="3">
+                  <Nav.Link href={ `${URL}/getStateDetail/${county}` } target="_blank"><Button variant="outline-primary" size="lg">Unstacked Data</Button>{' '}</Nav.Link>
+                </Col>
+              </Row>
+            </Container>
             {this.onePlot(res, {county})}
           </Tab.Pane>
       )
@@ -220,7 +231,7 @@ class App extends React.Component {
           <div style={{position: 'fixed', width: '100%', zIndex: '1000'}}>
             <Navbar bg="primary" variant="dark" >
               <Container>
-                <Navbar.Brand href="#USA">Covid Variants in United States</Navbar.Brand>
+                <Navbar.Brand href="#">Covid Variants in United States</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="#USA">All</Nav.Link>
                   <NavDropdown title="View by Regions" id="regions">
@@ -248,7 +259,8 @@ class App extends React.Component {
                 <strong className="me-auto">Data comes from</strong>
                 <small>updated</small>
               </Toast.Header>
-              <Toast.Body><a href="https://github.com/hodcroftlab/covariants">Institute of Social and Preventive Medicine University of Bern</a>, Bern, Switzerland & SIB Swiss Insitute of Bioinformatics, Switzerland</Toast.Body>
+              <Toast.Body><a href="https://github.com/hodcroftlab/covariants">Institute of Social and Preventive Medicine University of Bern</a>,
+                Bern, Switzerland & SIB Swiss Insitute of Bioinformatics, Switzerland</Toast.Body>
             </Toast>
           </ToastContainer>
 
@@ -259,9 +271,19 @@ class App extends React.Component {
               </div>
           </Container>
 
-          <Container style={{"background": "whitesmoke"}} fluid>
+          <Container style={{"background": "whitesmoke", "padding-bottom": "20px"}} fluid>
             <ReactTooltip>{this.props.toolTipContent}</ReactTooltip>
             <h2 style={{"textAlign": "center", "paddingTop": "30px"}} id="USA">- Whole USA- </h2>
+
+            <Row style={ {display: 'flex', 'justify-content': 'center', 'align-items': 'flex-start'} }>
+              <Col xs lg="3" style={{  "display": "flex", "justify-content": "flex-end"}} >
+                <Nav.Link href={ `${URL}/getAllUsa` } target="_blank"><Button variant="outline-primary" size="lg">Get AllUsa</Button>{' '}</Nav.Link>
+              </Col>
+              <Col xs lg="3">
+                <Nav.Link href={ `${URL}/getStatesDetail` } target="_blank"><Button variant="outline-primary" size="lg">Get Detail Data</Button>{' '}</Nav.Link>
+              </Col>
+            </Row>
+
             {this.callingAll()}
           </Container>
           <div id="regions">
