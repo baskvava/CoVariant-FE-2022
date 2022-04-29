@@ -109,7 +109,7 @@
           "required" : true,
           "schema" : {
             "type" : "string",
-            "example" : "Taxes"
+            "example" : "Texas"
           }
         } ],
         "responses" : {
@@ -145,7 +145,7 @@
           "required" : true,
           "schema" : {
             "type" : "string",
-            "example" : "Taxes"
+            "example" : "Texas"
           }
         } ],
         "responses" : {
